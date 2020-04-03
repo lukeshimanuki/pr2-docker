@@ -5,10 +5,14 @@ RUN apt-get -y install wget vim python-catkin-tools ros-kinetic-robot ros-kineti
 
 RUN git clone git://github.com/RichardKelley/kinetic_pr2.git
 RUN cd kinetic_pr2 && git checkout 523def2a03bcbc008d23315767b1cccf471b880a
+RUN cd kinetic_pr2/src && git clone git://github.com/Learning-and-Intelligent-Systems/lis_pr2_pkg.git
+RUN cd kinetic_pr2/src/lis_pr2_pkg && git checkout f610d74851433441b0a4558163cca07e2f7e6db2
 RUN rm -Rf kinetic_pr2/src/moveit/moveit_setup_assistant/
 RUN bash -c 'source /ros_entrypoint.sh && cd kinetic_pr2 && catkin_make'
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y --force-yes install --no-install-recommends apache2 atftpd beep bluez-hcidump build-essential cdbs chrony ckermit config-package-dev curl debhelper distcc dnsmasq emacs fakeroot fortune-mod fortunes gdb grub2-common gstreamer0.10-alsa hddtemp ifplugd initramfs-tools ipmitool iptables iw libapache2-mod-python libc6 libcap-dev libcap2 libcap2-dev libgcc1 libsdl1.2debian libstdc++6 lm-sensors netperf nfs-client nfs-kernel-server nodejs nvidia-current nvidia-settings octave openssh-server openjdk-9-jre portmap python python-bluez python-pexpect python-pycurl python-svn reprepro ros-kinetic-linux-networking ros-kinetic-openni-launch ros-kinetic-pr2 rsyslog screen smartmontools snmp snmpd subversion syslinux tcpdump tcsh udev unionfs-fuse vim wireless-tools zsh postfix
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y --force-yes install --no-install-recommends ros-kinetic-pr2-gripper-sensor
 
 RUN cd / && wget \
 	http://packages.namniart.com/repos/pr2.bak/pr2-0.6.1/ubuntu/pool/pr2/p/pr2-sysros/pr2-sysros_0.5.63-precise_amd64.deb \
